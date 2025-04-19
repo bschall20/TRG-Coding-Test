@@ -18,7 +18,9 @@ function Home() {
 
             {/* Right side home section content for News */}
             <section id="homeNews">
-                <h2>LATEST NEWS</h2>
+                <div className="homeNewsTitle">
+                    <h2>LATEST NEWS</h2>
+                </div>
                 <div className="newsBlock">
                     <h3 className="newsTitle">News Title</h3>
                     <p className="newsDescription">Rowmark LLC introduces The Naturals product line, an authentic, nature-inspired, textured engravable sheet product. The Naturals not only look like they came right from the outdoors, but they feel like it too. And just like their real-life counterparts,…</p>
