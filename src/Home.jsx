@@ -1,7 +1,30 @@
+import {React, useState, useEffect} from "react";
 import RowmarkLogo from "./images/Rowmark-Logo.svg"
 import { ReactSVG } from 'react-svg'
+import NewsCard from './components/NewsCard'
+import articles from './js/articles'
 
 function Home() {
+    // Error handling if page is loading or fails to load with API call, if one were to be called.
+    const [isLoading, setIsLoading] = useState(true);
+    // eslint-disable-next-line
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+      // Simulate API call and load page before rendering after .5s
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
+    }, []);
+  
+    if (isLoading) {
+        return <div className="loader" aria-label="Loading content">Loading...</div>;
+    }
+    if (error) {
+        return <div className="error">Error: {error.message}</div>
+    }
+
+
 
     return(<div id="home">
         <div className="homeContent">
@@ -12,7 +35,7 @@ function Home() {
                 <h1>Coding Test <span className="h1Version">v</span>2.0.1</h1>
                 <p className="h1Note">The difference is in the details</p>
                 <p className="homeInfo">Rowmark always has been and always will be a company build around people. From our highly skilled production, quality and engineering teams to our talented sales, marketing, finance and customer support personnel,
-                    <div className="homeInfoEnd">Rowmark's people are what make the difference.</div>
+                <p className="homeInfoEnd">Rowmark's people are what make the difference.</p>
              </p>
             </section>
 
@@ -21,27 +44,20 @@ function Home() {
                 <div className="homeNewsTitle">
                     <h2>LATEST NEWS</h2>
                 </div>
-                <div className="newsBlock">
-                    <h3 className="newsTitle">News Title</h3>
-                    <p className="newsDescription">Rowmark LLC introduces The Naturals product line, an authentic, nature-inspired, textured engravable sheet product. The Naturals not only look like they came right from the outdoors, but they feel like it too. And just like their real-life counterparts,…</p>
-                    <button className="newsBtn">READ MORE</button>
-                </div>
-                <div className="newsBlock">
-                    <h3 className="newsTitle">News Title</h3>
-                    <p className="newsDescription">Rowmark LLC introduces The Naturals product line, an authentic, nature-inspired, textured engravable sheet product. The Naturals not only look like they came right from the outdoors, but they feel like it too. And just like their real-life counterparts,…</p>
-                    <button className="newsBtn">READ MORE</button>
-                </div>
-                <div className="newsBlock">
-                    <h3 className="newsTitle">News Title</h3>
-                    <p className="newsDescription">Rowmark LLC introduces The Naturals product line, an authentic, nature-inspired, textured engravable sheet product. The Naturals not only look like they came right from the outdoors, but they feel like it too. And just like their real-life counterparts,…</p>
-                    <button className="newsBtn">READ MORE</button>
-                </div>
-                <div className="newsBlock">
-                    <h3 className="newsTitle">News Title</h3>
-                    <p className="newsDescription">Rowmark LLC introduces The Naturals product line, an authentic, nature-inspired, textured engravable sheet product. The Naturals not only look like they came right from the outdoors, but they feel like it too. And just like their real-life counterparts,…</p>
-                    <button className="newsBtn">READ MORE</button>
-                </div>
-            </section>
+                {/* Get all articles from and iterate over JS file to display */}
+                {
+                    articles.map((dataObj, index) => {
+                        return (
+                            <NewsCard
+                                index={index} 
+                                title={dataObj.title}
+                                description={dataObj.description}
+                                link={dataObj.link}
+                            />
+                        )
+                    })
+                }
+        </section>
         </div>
     </div>)
 }
